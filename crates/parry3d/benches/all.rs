@@ -6,7 +6,7 @@ extern crate parry3d;
 extern crate rand;
 extern crate test;
 
-mod bounding_volume;
+// mod bounding_volume;
 mod common;
 mod query;
-mod support_map;
+// mod support_map;
