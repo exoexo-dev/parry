@@ -10,7 +10,6 @@ use parry3d::shape::{Ball, Capsule, Cone, ConvexPolyhedron, Cuboid, Cylinder, Se
 use rand::distributions::{Distribution, Standard};
 use rand::Rng;
 
-
 pub trait DefaultGen {
     fn generate<R: Rng>(rng: &mut R) -> Self;
 }
@@ -79,7 +78,11 @@ where
     Standard: Distribution<Point<Real>>,
 {
     fn generate<R: Rng>(rng: &mut R) -> Capsule {
-        Capsule::new(rng.gen::<Point<Real>>(), rng.gen::<Point<Real>>(), rng.gen::<Real>().abs())
+        Capsule::new(
+            rng.gen::<Point<Real>>(),
+            rng.gen::<Point<Real>>(),
+            rng.gen::<Real>().abs(),
+        )
     }
 }
 
@@ -126,9 +129,8 @@ where
     fn generate<R: Rng>(rng: &mut R) -> ConvexPolyhedron {
         // It is recommended to have at most 100 points.
         // Otherwise, a smarter structure like the DK hierarchy would be needed.
-        // let pts: Vec<_> = (0..100).map(|_| rng.gen()).collect();
-        // ConvexPolyhedron::try_from_points(&pts).unwrap()
-        unimplemented!()
+        let pts: Vec<_> = (0..100).map(|_| rng.gen()).collect();
+        ConvexPolyhedron::from_convex_hull(&pts).unwrap()
     }
 }
 

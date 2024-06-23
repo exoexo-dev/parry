@@ -1,7 +1,7 @@
 use crate::common::{generate, unref};
 use na::Isometry3;
 use parry3d::query;
-use parry3d::shape::{Ball, Capsule, Cone, Cuboid, Cylinder};
+use parry3d::shape::{Ball, Capsule, Cone, ConvexPolyhedron, Cuboid, Cylinder};
 use rand::SeedableRng;
 use rand_isaac::IsaacRng;
 use test::Bencher;
@@ -57,5 +57,15 @@ bench_free_fn!(
     b1: Cylinder,
     pos2: Isometry3<f32>,
     b2: Cylinder,
+    prediction: f32
+);
+
+bench_free_fn!(
+    bench_convex_against_convex,
+    query::contact,
+    pos1: Isometry3<f32>,
+    b1: ConvexPolyhedron,
+    pos2: Isometry3<f32>,
+    b2: ConvexPolyhedron,
     prediction: f32
 );
